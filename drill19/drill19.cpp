@@ -1,6 +1,8 @@
-include <iostream>
-include <string>
-include <vector>
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 template <typename T>
 struct S {
@@ -33,15 +35,23 @@ void read_val(T& v){
 	cin >> v;
 	
 }
-template<typename T> istream& operator>>(istream& is, S<T>& ss)
+template<typename T>
+std::istream& operator>>(istream& is,vector<T>& v)
 {
-    T v;
-    cin >> v;
-    if (!is) return is;
-    ss = v;
-    return is;
+  char ch = 0;
+	is >> ch;
+	if (ch != '{'){
+		is.unget();
+		return is;
+	}
+	for (T val; is >> val;){
+		v.push_back(val);
+		is >> ch;
+		if (ch != ',') break;
+	}
+	return is;
 }
-template<typename T> ostream& operator<<(ostream& os, const vector<T>& d)
+template<typename T> std::ostream& operator<<(ostream& os, const vector<T>& d)
 {
     os << "{ ";
     for (int i = 0; i<d.size(); ++i) {
@@ -52,13 +62,6 @@ template<typename T> ostream& operator<<(ostream& os, const vector<T>& d)
     os << "}";
     return os;
 }
-
-
-template<class T> void read_val(T& v)
-{
-    cin >> v;
-}
-
 
 int main(){
 	S<int> s;
@@ -102,6 +105,6 @@ int main(){
 	
 	vector<int> vint;
 	read_val(vint);
-	
-	
+	S<vector<int>> svi2 {vint};
+	cout << "S<vector<int>> svi2: " << svi2.get() << endl;
 }

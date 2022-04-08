@@ -10,10 +10,10 @@ template <typename C>
 void print(const C& c){
 	for(auto& elem : c)
 		std::cout << elem << ", ";
-	std::cout << endl;
+	std::cout << std::endl;
 }
 template <typename C>
-void ereknoveles(C& c, int n){
+void inc(C& c, int n){
 	for(auto& elem : c)
 		elem+=n;
 }
@@ -21,7 +21,7 @@ void ereknoveles(C& c, int n){
 template<typename Iter1, typename Iter2>
 Iter2 my_copy(Iter1 f1, Iter1 e1, Iter2 f2){
 	for(Iter1 p = f1; p!=e1;++p){
-		*f2=*f1;
+		*f2=*p;
 		f2++;
 	}
 	return f2;
